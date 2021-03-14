@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Button_Show_div</title>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+</head>
+<body>
+	<div class="container pt-5">
+		<div class="d-flex justify-content-center">
+			<button class="btn btn-secondary" id="button1">Click me</button>
+		</div>
+		<div id="div"></div>
+		<!-- <iframe style="height: 900px; width: 900px;" src="http://127.0.0.1:5000/" title="Microblog"></iframe> -->
+		<div class="d-flex justify-content-center">
+			<button class="btn btn-secondary" id="button2" style="display: none;">Reset</button>
+		</div>
+	</div>
+</body>
+<script>
+	var x = new XMLHttpRequest();
+	x.onreadystatechange = function(){
+		if (this.readyState == 4 && this.status==200) {
+			// var res = JSON.parse(this.responseText);
+			// console.log(res);
+			document.getElementById('div').innerHTML = this.responseText;
+		}
+	};
+	document.getElementById('button1').addEventListener('click', function(){
+		x.open('GET', 'http://127.0.0.1:5000/', true);
+		x.send();
+		this.style.display = 'none';
+		document.getElementById('button2').style.display = 'block';
+	})
+	document.getElementById('button2').addEventListener('click', function(){
+		document.getElementById('div').innerHTML = "";
+		document.getElementById('button1').style.display = 'block';
+		this.style.display = 'none';
+	})
+</script>
+</html>

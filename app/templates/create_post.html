@@ -1,0 +1,24 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<form action="" method="post" class="form border">
+	{{ form.hidden_tag() }}
+	<h3 class="text-center py-2">New Post</h3>
+	<hr class="mt-0">
+	<div class="form-content">
+		<div class="col">
+			<div class="form-group">
+				{{ form.post(size=32, type='text', class='form-control', placeholder='Say Something') }}<br>
+				{% for error in form.post.errors %}
+				<span style="color: red">[{{ error }}]</span>
+				{% endfor %}
+			</div>
+			<div class="form-group">
+				{{ form.submit(class='btn btn-outline-primary', value='Post') }}
+			</div>
+		</div>
+	</div>
+</form>
+
+{% endblock %}

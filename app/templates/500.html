@@ -1,0 +1,9 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+	<h1>An unexpected error occurred</h1>
+	<p>The administration has been notified. Sorry for inconvenience!</p>
+	<p><a href="{{ url_for('posts.view') }}">Back</a></p>
+
+{% endblock %}

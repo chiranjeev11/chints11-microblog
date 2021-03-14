@@ -1,0 +1,21 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<h1>
+	Thankyou
+</h1>
+<script>
+	$(document).ready(function(){
+		$.ajax({
+			type: 'GET',
+			url: 'https://www.instagram.com/graphql/query/?query_hash=d04b0a864b4b54837c0d870b0e77e076&variables=%7B%22id%22%3A%2218573768734%22%2C%22include_reel%22%3Atrue%2C%22fetch_mutual%22%3Afalse%2C%22first%22%3A24%7D',
+			success: function(response){
+				console.log(response);
+			}
+		})
+	})
+</script>
+
+{% endblock %}
+d04b0a864b4b54837c0d870b0e77e076
+d04b0a864b4b54837c0d870b0e77e076

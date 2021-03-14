@@ -1,0 +1,43 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<div class="d-flex justify-content-center">
+	<form action="" method="post" class="form border border-primary mt-5 col-sm-6 px-0" enctype="multipart/form-data">
+		<div class="d-flex justify-content-center align-items-center font-italic text-white mb-3" style="font-size: 20px; height: 60px;background: linear-gradient(to right, blue, purple)">
+			Edit Profile
+		</div>
+
+		{{ form.hidden_tag() }}
+		<div class="form-content">
+			<div class="col">
+				<div class="form-group">
+					{{ form.username(size=32,type="text", class="form-control", placeholder="Username *") }}
+					{% for error in form.username.errors %}
+					<span style="color: red">[{{ error }}]</span>
+					{% endfor %}
+				</div>
+				<div class="form-group">
+					{{ form.about_me(size=32,type="text", class="form-control", placeholder="About me")}}
+					{% for error in form.about_me.errors %}
+					<span style="color: red">[{{ error }}]</span>
+					{% endfor %}
+				</div>
+				<div class="form-group">
+					{{ form.picture.label() }}
+					{{ form.picture(class="form-control-file") }}
+					{% if form.picture.errors %}
+						{% for error in form.picture.errors %}
+						<span style="color: red">[{{ error }}]</span>
+						{% endfor %}
+					{% endif %}
+				</div>
+				<div class="form-group d-md-flex  justify-content-center align-items-center">
+					{{ form.submit(class="btn btn-outline-primary") }}
+				</div>
+			</div>
+		</div>
+	</form>
+</div>
+
+{% endblock %}

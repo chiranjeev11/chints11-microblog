@@ -1,0 +1,13 @@
+<div class="col border m-2 pb-1">
+	<div class="row align-items-center">
+		<img class="rounded-circle account-img p-2" src="{{ url_for('static', filename='profile_pics/'+ post.author.image_file) }}" style="height: 2vw; width: 2vw;">
+		{% set user_link %}
+		<a href="{{ url_for('posts.user', username=post.author.username) }}">{{ post.author.username }}</a>
+		{% endset %}
+		{{ _('%(username)s', username=user_link) }}
+	</div>
+	<hr class="mt-0">
+	<div>
+		{{ post.body }}
+	</div>
+</div>
