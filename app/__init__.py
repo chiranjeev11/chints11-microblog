@@ -33,8 +33,8 @@ def get_locale():
 	#To select the best language, you need to compare the list of languages requested by the client against the languages the application supports, and using the 
 	#client provided weights, find the best language. The logic to do this is somewhat complicated, but it is all encapsulated in the best_match() method, which 
 	#takes the list of languages offered by the application as an argument and returns the best choice.
-	# return request.accept_languages.best_match(current_app.config['LANGUAGES'])
-	return 'es'
+	return request.accept_languages.best_match(current_app.config['LANGUAGES'])
+	# return 'es'
 
 
 def create_app(config_class=Config):
