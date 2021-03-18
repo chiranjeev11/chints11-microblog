@@ -1,11 +1,12 @@
 from flask import current_app
 from app import db
 from itsdangerous import TimedJSONWebSignatureSerializer as Serializer
-from datetime import datetime
+import time
 from flask_login import UserMixin
 from app import login
 from werkzeug.security import generate_password_hash, check_password_hash
 from hashlib import md5
+from datetime import datetime
 
 # This is auxiliary table  that has no data other than the foreign keys.
 followers = db.Table('followers', 
@@ -29,7 +30,7 @@ class User(UserMixin, db.Model):
 
 	image_file = db.Column(db.String(20), nullable=False, default='default.jpg')
 
-	last_seen = db.Column(db.DateTime, default=datetime.utcnow)
+	last_seen = db.Column(db.Integer, default=int(time.time()))
 
 	# secondary specifies association table.
 	# primaryjoin specifies left side entity ie. follower_id.

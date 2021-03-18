@@ -2,19 +2,23 @@
 
 {% block content %}
 
-	<div class="row pt-2 justify-content-center">
-		<div class="col-2">
-			<img class="rounded-circle account-img" src="{{ image_file }}" style="height: 6vw; width: 6vw;">
-			{% if user.last_seen %}<p>{{ user.last_seen }}</p>{% endif %}
+	<div class="row pt-2">
+		<div class="col-md-3 text-center">
+			<img class="rounded-circle account-img" src="{{ image_file }}" style="height: 100px; width: 100px;">
+			{% if active %}
+			<p style="color: green;">Active</p>
+			{% elif last_seen %}
+			<p>{{ last_seen }}</p>
+			{% endif %}
 		</div>
-		<div class="col-9">
-			<div class="row">
-				<div class="col-4">
-					<h1>{{ user.username }}</h1>
+		<div class="col-md-9">
+			<div class="row justify-content-center justify-content-md-start">
+				<div class="">
+					<h2>{{ user.username }}</h2>
 				</div>
-				<div class="col-3">
+				<div class="col-md-3 d-flex flex-column align-items-center align-items-md-start">
 					{% if user == current_user %}
-					<a class="btn btn-light" href="{{ url_for('users.edit_profile') }}">Edit your profile</a>
+					<a class="btn btn-light" href="{{ url_for('users.edit_profile') }}">Edit profile</a>
 					{% elif not current_user.is_following(user) %}
 					<form action="{{ url_for('users.follow', username=user.username) }}", method="post">
 						{{ form.hidden_tag() }}
@@ -28,20 +32,20 @@
 					{% endif %}
 				</div>
 			</div>
-			<div class="row">
-				<div class="col-2">
+			<div class="row m-0 justify-content-center justify-content-md-start py-2">
+				<div class="col col-md-2">
 					<span><b>{{ user.post.count() }}</b></span> posts
 				</div>
-				<div class="col-2">
+				<div class="col col-md-2">
 					<span><b>{{ user.followers.count() }}</b></span> followers
 				</div>
-				<div class="col-2">
+				<div class="col col-md-2">
 					<span><b>{{ user.followed.count() }}</b></span> following
 				</div>
 			</div>
 			<div class="row">
-				<div class="col pt-3">
-					{% if user.about_me %}<p>{{ user.about_me }}</p>{% endif %}
+				<div class="col-md-7 pt-3">
+					{% if user.about_me %}<p class="text-center text-md-left">{{ user.about_me }}</p>{% endif %}
 				</div>
 			</div>
 		</div>
@@ -57,13 +61,13 @@
 	
 
 	<div class="row justify-content-end mr-2 pt-4">
-		{% if prev_url %}
+		{% if prev_url and posts %}
 		<a href="{{ prev_url }}" class="btn border">Prev</a>
 		{% else %}
 		<a href="{{ prev_url }}" class="btn border disabled">Prev</a>
 		{% endif %}
 		
-		{% if next_url %}
+		{% if next_url and posts %}
 		<a href="{{ next_url }}" class="btn border">Next</a>
 		{% else %}
 		<a href="{{ next_url }}" class="btn border disabled">Next</a>

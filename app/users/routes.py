@@ -75,6 +75,8 @@ def register():
 
 		user = User(username=form.username.data, email=form.email.data)
 
+		
+
 		user.set_password(form.password.data)
 
 		db.session.add(user)
@@ -280,3 +282,5 @@ def explore():
 		prev_url = url_for('users.explore', page=posts.prev_num)
 
 	return render_template('index.html', title='Explore', posts=posts.items, next_url=next_url, prev_url=prev_url)
+
+

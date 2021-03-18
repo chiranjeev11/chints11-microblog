@@ -6,6 +6,8 @@ from app.models import User, Post
 from flask_login import login_required
 from guess_language import guess_language
 from flask_babel import _
+import time
+from datetime import datetime
 
 
 posts = Blueprint('posts', __name__)
@@ -34,6 +36,48 @@ def view():
 
 	return render_template('index.html',title='Home Page', posts=post.items, next_url=next_url, prev_url=prev_url)
 
+def lastSeen(last):
+
+	current = int(time.time())
+
+	t = current-last
+
+	active = 0
+
+	if t<=4:
+
+		message = 'Active'
+		active = 1
+
+	elif t/60<1:
+
+		message = 'Active few seconds ago'
+
+	elif t/3600<1:
+
+		message = 'Active {}mins ago'.format(t//60)
+
+	elif t/86400<1:
+
+		message = 'Active {}h ago'.format(t//3600)
+
+	elif t/604800<1:
+
+		message = 'Active {} days ago'.format(t//86400)
+
+	elif t/2592000<1:
+
+		message = 'Active {} weeks ago'.format(t//604800)
+
+	elif t/31104000<1:
+
+		message = 'Active {} months ago'.format(t//259200)
+
+	else:
+
+		message = 'Active {} years ago'.format(t//31104000)
+	
+	return (message, active)
 
 
 @posts.route('/user/<username>')
@@ -41,6 +85,13 @@ def view():
 def user(username):
 
 	user = User.query.filter_by(username=username).first_or_404()
+
+
+	if user.last_seen:
+
+		last_seen, active = lastSeen(int(user.last_seen))
+	else:
+		last_seen, active = None, None
 
 	form = EmptyForm()
 
@@ -62,7 +113,7 @@ def user(username):
 		prev_url = url_for('posts.user', username=username, page=posts.prev_num)
 
 
-	return render_template('user.html', user=user, form=form, posts=posts.items, next_url=next_url, prev_url=prev_url, image_file=image_file)
+	return render_template('user.html', user=user, form=form, posts=posts.items, next_url=next_url, prev_url=prev_url, image_file=image_file, last_seen=last_seen, active=active)
 
 
 @posts.route('/post/new_post/', methods=['GET', 'POST'])
@@ -91,3 +142,13 @@ def new_post():
 
 
 	return render_template('create_post.html', form=form)
+
+
+@posts.before_request
+def before_request():
+
+	if current_user.is_authenticated:
+
+		current_user.last_seen = (int(time.time()))
+
+		db.session.commit()
