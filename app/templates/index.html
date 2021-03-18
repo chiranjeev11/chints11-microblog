@@ -7,18 +7,20 @@
 		{% include '_post.html' %}
 	{% endfor %}
 </div>
+{% if posts %}
 <div class="row justify-content-end mr-2 pt-4">
-	{% if prev_url and posts %}
+	{% if prev_url%}
 	<a href="{{ prev_url }}" class="btn border">Prev</a>
 	{% else %}
 	<a href="{{ prev_url }}" class="btn border disabled">Prev</a>
 	{% endif %}
 	<span class="border py-2 px-3">{{ page }}</span>
-	{% if next_url and posts %}
+	{% if next_url %}
 	<a href="{{ next_url }}" class="btn border">Next</a>
 	{% else %}
 	<a href="{{ next_url }}" class="btn border disabled">Next</a>
 	{% endif %}
 </div>
+{% endif %}
 
 {% endblock %}
