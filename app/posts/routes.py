@@ -34,7 +34,7 @@ def view():
 	if post.has_prev:
 		prev_url = url_for('posts.view', page=post.prev_num)
 
-	return render_template('index.html',title='Home Page', posts=post.items, next_url=next_url, prev_url=prev_url)
+	return render_template('index.html',title='Home Page', posts=post.items, next_url=next_url, prev_url=prev_url, page=page)
 
 def lastSeen(last):
 
@@ -113,7 +113,7 @@ def user(username):
 		prev_url = url_for('posts.user', username=username, page=posts.prev_num)
 
 
-	return render_template('user.html', user=user, form=form, posts=posts.items, next_url=next_url, prev_url=prev_url, image_file=image_file, last_seen=last_seen, active=active)
+	return render_template('user.html', user=user, form=form, posts=posts.items, next_url=next_url, prev_url=prev_url, image_file=image_file, last_seen=last_seen, active=active, page=page)
 
 
 @posts.route('/post/new_post/', methods=['GET', 'POST'])

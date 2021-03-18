@@ -281,6 +281,6 @@ def explore():
 	if posts.has_prev:
 		prev_url = url_for('users.explore', page=posts.prev_num)
 
-	return render_template('index.html', title='Explore', posts=posts.items, next_url=next_url, prev_url=prev_url)
+	return render_template('index.html', title='Explore', posts=posts.items, next_url=next_url, prev_url=prev_url, page=page)
 
 
