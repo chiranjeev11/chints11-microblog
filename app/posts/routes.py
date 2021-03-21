@@ -94,7 +94,7 @@ def user(username):
 		last_seen, active = None, None
 
 	form = EmptyForm()
-	print(current_user.image_file)
+	
 	image_file = url_for('static', filename=f"profile_pics/{user.image_file}")
 
 
