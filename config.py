@@ -18,7 +18,7 @@ class Config:
 
 	MAIL_USERNAME = 'chiranjeevkhurana11@gmail.com' or os.environ.get('MAIL_USERNAME')
 
-	MAIL_PASSWORD = 'Mamamimi0,' or os.environ.get('MAIL_PASSWORD')
+	MAIL_PASSWORD = 'your-password' or os.environ.get('MAIL_PASSWORD')
 
 	ADMINS = ['chiranjeevkhurana11@gmail.com', 'ankitkochar456@gmail.com', 'rnavbhardwaj@gmail.com']
 
